@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { listCases, listEvidence, verifyEvidence } from './api.ts';
+import { createCase, listCases, listEvidence, verifyEvidence } from './api.ts';
 
 function json(value: unknown, status = 200): Response {
   return new Response(JSON.stringify(value), { status, headers: { 'Content-Type': 'application/json' } });
@@ -40,5 +40,14 @@ describe('frontend API error handling', () => {
     await expect(listCases()).rejects.toThrow('case not found');
     await expect(verifyEvidence('ev-01')).rejects.toThrow('malformed verification response');
     await expect(verifyEvidence('ev-01')).rejects.toThrow('malformed verification response');
+  });
+
+  it('accepts the backend case-create contract, which omits list-only counts', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValueOnce(json({
+      id: 'case-new', name: 'New case', created_at: '2026-10-10T12:00:00Z',
+    }, 201)));
+    await expect(createCase('New case')).resolves.toEqual({
+      id: 'case-new', name: 'New case', created_at: '2026-10-10T12:00:00Z', evidence_count: 0, event_count: 0,
+    });
   });
 });

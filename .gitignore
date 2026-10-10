@@ -17,7 +17,13 @@ dist/
 *.p12
 *.pfx
 *.keystore
+*.secret
+*.mnemonic
+*.wallet
+id_rsa*
+id_ed25519*
 secrets/
+keystore/
 artifacts/
 cache/
 coverage/

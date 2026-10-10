@@ -102,8 +102,15 @@ export function createCase(name: string): Promise<CaseCreateResult> {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ name }),
   }).then((value) => {
-    if (!isCaseSummary(value)) throw malformedResponse('created case');
-    return value;
+    if (!isRecord(value) || !isNonEmptyString(value.id) || !isNonEmptyString(value.name)
+      || !isNonEmptyString(value.created_at) || Number.isNaN(Date.parse(value.created_at))) throw malformedResponse('created case');
+    return {
+      id: value.id,
+      name: value.name,
+      created_at: value.created_at,
+      evidence_count: isNonNegativeInteger(value.evidence_count) ? value.evidence_count : 0,
+      event_count: isNonNegativeInteger(value.event_count) ? value.event_count : 0,
+    };
   });
 }
 

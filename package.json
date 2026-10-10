@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
+    "test:contract": "hardhat test",
     "test": "node --experimental-strip-types --test test/integrity.test.ts",
     "test:frontend": "vitest run"
   },
@@ -15,12 +16,14 @@
     "react-dom": "^19.3.0"
   },
   "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^6.1.2",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
     "@testing-library/user-event": "^14.6.7",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
+    "hardhat": "^2.29.1",
     "jsdom": "^30.1.2",
     "typescript": "^7.0.2",
     "vite": "^8.3.4",
