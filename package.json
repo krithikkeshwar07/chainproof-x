@@ -7,8 +7,19 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "test:contract": "hardhat test",
-    "test": "node --experimental-strip-types --test test/integrity.test.ts",
-    "test:frontend": "vitest run"
+    "chain:node": "hardhat node --hostname 127.0.0.1 --port 8545",
+    "chain:deploy": "hardhat run scripts/deploy.cjs --network localhost",
+    "test": "node --experimental-strip-types --test test/integrity.test.ts test/deployment-safety.test.cjs test/dependency-overrides.test.cjs",
+    "test:frontend": "vitest run",
+    "dev:stack": "node scripts/dev-stack.cjs",
+    "demo:stack": "node scripts/dev-stack.cjs --demo",
+    "demo:reset": "node scripts/reset-demo.cjs",
+    "demo:seed": "node scripts/seed-demo.cjs",
+    "chain:node:demo": "hardhat node --hostname 127.0.0.1 --port 8546",
+    "rehearsal:chain": "hardhat node --hostname 127.0.0.1 --port 8556",
+    "rehearsal:deploy": "node scripts/rehearsal-deploy.cjs",
+    "rehearsal:app": "node scripts/rehearsal-app.cjs",
+    "rehearsal:seed": "node scripts/rehearsal-seed.cjs"
   },
   "dependencies": {
     "lucide-react": "^1.55.0",
@@ -28,5 +39,9 @@
     "typescript": "^7.0.2",
     "vite": "^8.3.4",
     "vitest": "^5.0.3"
+  },
+  "overrides": {
+    "lodash": "^4.18.1",
+    "tmp": "^0.2.7"
   }
 }

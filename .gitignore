@@ -6,6 +6,22 @@ __pycache__/
 .pytest_cache/
 *.py[cod]
 data/
+# Local evidence and recovery material must stay out of source control.
+/evidence/
+/evidence-data/
+/backup/
+/backups/
+**/backup/
+**/backups/
+*.bak
+*.bak.*
+*.backup
+*.backup.*
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.7z
 node_modules/
 dist/
 .env
